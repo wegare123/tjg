@@ -73,7 +73,7 @@ cat <<EOF> /root/akun/tjg.json
   "websocket": {
     "enabled": true,
     "path": "$path",
-    "hostname": "$bug"
+    "host": "$bug"
    }
 }
 
