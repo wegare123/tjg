@@ -69,7 +69,7 @@ cat <<EOF> /root/akun/tjg.json
   "local_port": 1080,
   "remote_addr": "$host",
   "remote_port": $port,
-  "password": ["$pass"]
+  "password": ["$pass"],
   "websocket": {
     "enabled": true,
     "path": "$path",
