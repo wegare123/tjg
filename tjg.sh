@@ -58,8 +58,8 @@ udp="-"
 fi
 echo "$host
 $port
-$pass
 $bug
+$pass
 $path
 $udp" > /root/akun/tjg.txt
 cat <<EOF> /root/akun/tjg.json
