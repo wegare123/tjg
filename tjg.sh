@@ -4,7 +4,7 @@ clear
 host2="$(cat /root/akun/tjg.txt | tr '\n' ' '  | awk '{print $1}')" 
 port2="$(cat /root/akun/tjg.txt | tr '\n' ' '  | awk '{print $2}')" 
 bug2="$(cat /root/akun/tjg.txt | tr '\n' ' '  | awk '{print $3}')" 
-pas2="$(cat /root/akun/tjg.txt | tr '\n' ' '  | awk '{print $4}')" 
+pass2="$(cat /root/akun/tjg.txt | tr '\n' ' '  | awk '{print $4}')" 
 path2="$(cat /root/akun/tjg.txt | tr '\n' ' '  | awk '{print $5}')" 
 udp2="$(cat /root/akun/tjg.txt | tr '\n' ' '  | awk '{print $6}')" 
 
