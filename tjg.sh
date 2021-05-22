@@ -93,7 +93,7 @@ udp="$(cat /root/akun/tjg.txt | tr '\n' ' '  | awk '{print $6}')"
 host="$(cat /root/akun/tjg.txt | tr '\n' ' '  | awk '{print $1}')" 
 route="$(cat /root/akun/ipmodem.txt | grep -i ipmodem | cut -d= -f2 | tail -n1)"
 
-trojan-go -c /root/akun/tjg.json &
+trojan-go -config /root/akun/tjg.json &
 sleep 3
 ip tuntap add dev tun1 mode tun
 ifconfig tun1 10.0.0.1 netmask 255.255.255.0
@@ -114,7 +114,7 @@ elif [ "${tools}" = "3" ]; then
 host="$(cat /root/akun/tjg.txt | tr '\n' ' '  | awk '{print $1}')" 
 route="$(cat /root/akun/ipmodem.txt | grep -i ipmodem | cut -d= -f2 | tail -n1)" 
 #killall screen
-killall -q badvpn-tun2socks trojan ping-tjg fping
+killall -q badvpn-tun2socks trojan-go ping-tjg fping
 route del 8.8.8.8 gw "$route" metric 0 2>/dev/null
 route del 8.8.4.4 gw "$route" metric 0 2>/dev/null
 route del "$host" gw "$route" metric 0 2>/dev/null
