@@ -1,4 +1,4 @@
-# tjg (beta)
+# tjg
 wget --no-check-certificate "https://raw.githubusercontent.com/wegare123/tjg/main/install.sh" -O ~/install.sh && chmod 777 ~/install.sh && ~/./install.sh
 
 # catatan
