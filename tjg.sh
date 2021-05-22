@@ -70,10 +70,15 @@ cat <<EOF> /root/akun/tjg.json
   "remote_addr": "$host",
   "remote_port": $port,
   "password": ["$pass"],
+  "log_level": 1,
+  "ssl": {
+       "verify": false,
+       "sni": "$bug"
+  },
   "websocket": {
-    "enabled": true,
-    "path": "$path",
-    "host": "$bug"
+       "enabled": true,
+       "path": "$path",
+       "host": "$bug"
    }
 }
 
