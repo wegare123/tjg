@@ -35,6 +35,10 @@ echo "Masukkan bug"
 read -p "default bug: $bug2 : " bug
 [ -z "${bug}" ] && bug="$bug2"
 
+echo "Masukkan path" 
+read -p "default path: $path2 : " path
+[ -z "${path}" ] && path="$path2"
+
 read -p "ingin menggunakan port udpgw y/n " pilih
 if [ "$pilih" = "y" ]; then
 echo "Masukkan port udpgw" 
