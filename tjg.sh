@@ -71,16 +71,30 @@ cat <<EOF> /root/akun/tjg.json
   "remote_port": $port,
   "password": ["$pass"],
   "ssl": {
-       "verify": false,
-       "sni": "$bug"
+       "sni": "$bug",
   },
+  "router":{
+        "enabled": true,
+        "bypass": [
+            "geoip:cn",
+            "geoip:private",
+            "geosite:cn",
+            "geosite:geolocation-cn"
+        ],
+        "block": [
+            "geosite:category-ads"
+        ],
+        "proxy": [
+            "geosite:geolocation-!cn"
+        ],
+        "default_policy": "proxy"
+   },
   "websocket": {
        "enabled": true,
        "path": "$path",
        "host": "$bug"
    }
 }
-
 EOF
 cat <<EOF> /usr/bin/gproxy-tjg
 badvpn-tun2socks --tundev tun1 --netif-ipaddr 10.0.0.2 --netif-netmask 255.255.255.0 $badvpn --udpgw-connection-buffer-size 65535 --udpgw-transparent-dns &
@@ -98,7 +112,7 @@ host="$(cat /root/akun/tjg.txt | tr '\n' ' '  | awk '{print $1}')"
 route="$(cat /root/akun/ipmodem.txt | grep -i ipmodem | cut -d= -f2 | tail -n1)"
 
 trojan-go -config /root/akun/tjg.json &
-sleep 3
+sleep 5
 ip tuntap add dev tun1 mode tun
 ifconfig tun1 10.0.0.1 netmask 255.255.255.0
 /usr/bin/gproxy-tjg
