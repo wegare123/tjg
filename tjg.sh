@@ -74,22 +74,6 @@ cat <<EOF> /root/akun/tjg.json
        "verify": false,
        "sni": "$bug"
   },
-  "router":{
-        "enabled": true,
-        "bypass": [
-            "geoip:cn",
-            "geoip:private",
-            "geosite:cn",
-            "geosite:geolocation-cn"
-        ],
-        "block": [
-            "geosite:category-ads"
-        ],
-        "proxy": [
-            "geosite:geolocation-!cn"
-        ],
-        "default_policy": "proxy"
-   },
   "websocket": {
        "enabled": true,
        "path": "$path",
@@ -113,7 +97,7 @@ host="$(cat /root/akun/tjg.txt | tr '\n' ' '  | awk '{print $1}')"
 route="$(cat /root/akun/ipmodem.txt | grep -i ipmodem | cut -d= -f2 | tail -n1)"
 
 trojan-go -config /root/akun/tjg.json &
-sleep 5
+sleep 3
 ip tuntap add dev tun1 mode tun
 ifconfig tun1 10.0.0.1 netmask 255.255.255.0
 /usr/bin/gproxy-tjg
