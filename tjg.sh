@@ -71,7 +71,8 @@ cat <<EOF> /root/akun/tjg.json
   "remote_port": $port,
   "password": ["$pass"],
   "ssl": {
-       "sni": "$bug",
+       "verify": false,
+       "sni": "$bug"
   },
   "router":{
         "enabled": true,
