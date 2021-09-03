@@ -1,13 +1,22 @@
 #!/bin/bash
 #tjg (Wegare)
-clear
+stop () {
+host="$(cat /root/akun/tjg.txt | tr '\n' ' '  | awk '{print $1}')" 
+route="$(cat /root/akun/ipmodem.txt | grep -i ipmodem | cut -d= -f2 | tail -n1)" 
+killall -q badvpn-tun2socks trojan-go ping-tjg fping
+route del 8.8.8.8 gw "$route" metric 0 2>/dev/null
+route del 8.8.4.4 gw "$route" metric 0 2>/dev/null
+route del "$host" gw "$route" metric 0 2>/dev/null
+ip link delete tun1 2>/dev/null
+/etc/init.d/dnsmasq restart 2>/dev/null
+}
 host2="$(cat /root/akun/tjg.txt | tr '\n' ' '  | awk '{print $1}')" 
 port2="$(cat /root/akun/tjg.txt | tr '\n' ' '  | awk '{print $2}')" 
 bug2="$(cat /root/akun/tjg.txt | tr '\n' ' '  | awk '{print $3}')" 
 pass2="$(cat /root/akun/tjg.txt | tr '\n' ' '  | awk '{print $4}')" 
 path2="$(cat /root/akun/tjg.txt | tr '\n' ' '  | awk '{print $5}')" 
 udp2="$(cat /root/akun/tjg.txt | tr '\n' ' '  | awk '{print $6}')" 
-
+clear
 echo "Inject trojan-go by wegare"
 echo "1. Sett Profile"
 echo "2. Start Inject"
@@ -90,6 +99,7 @@ sleep 2
 clear
 /usr/bin/tjg
 elif [ "${tools}" = "2" ]; then
+stop
 ipmodem="$(route -n | grep -i 0.0.0.0 | head -n1 | awk '{print $2}')" 
 echo "ipmodem=$ipmodem" > /root/akun/ipmodem.txt
 udp="$(cat /root/akun/tjg.txt | tr '\n' ' '  | awk '{print $6}')" 
@@ -114,17 +124,7 @@ chmod +x /usr/bin/ping-tjg
 /usr/bin/ping-tjg > /dev/null 2>&1 &
 sleep 5
 elif [ "${tools}" = "3" ]; then
-host="$(cat /root/akun/tjg.txt | tr '\n' ' '  | awk '{print $1}')" 
-route="$(cat /root/akun/ipmodem.txt | grep -i ipmodem | cut -d= -f2 | tail -n1)" 
-#killall screen
-killall -q badvpn-tun2socks trojan-go ping-tjg fping
-route del 8.8.8.8 gw "$route" metric 0 2>/dev/null
-route del 8.8.4.4 gw "$route" metric 0 2>/dev/null
-route del "$host" gw "$route" metric 0 2>/dev/null
-ip link delete tun1 2>/dev/null
-killall dnsmasq 
-/etc/init.d/dnsmasq start > /dev/null
-sleep 2
+stop
 echo "Stop Suksess"
 sleep 2
 clear
